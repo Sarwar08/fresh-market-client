@@ -7,13 +7,20 @@ import useAuth from '../../../hooks/useAuth';
 
 const Register = () => {
 
-    const {} = useAuth();
+    const { createUser } = useAuth();
 
-    const { register, handleSubmit, formState: {errors} } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
         console.log(data);
 
+        createUser(data.email, data.password)
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
 
     }
 
@@ -23,7 +30,7 @@ const Register = () => {
 
         const formData = new FormData();
         formData.append('image', image);
-        
+
         const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_IMAGE_UPLOAD_KEY}`;
 
         const res = await axios.post(imageUploadUrl, formData);
@@ -65,21 +72,19 @@ const Register = () => {
                             className="input" placeholder="Password" defaultValue='123456' />
                         {
                             errors.password?.type === 'required' && <p className='text-red-500'>Password is required.</p>
-                        }    
+                        }
                         {
                             errors.password?.type === 'minLength' && <p className='text-red-500'>Password must be 6 characters.</p>
-                        }    
+                        }
                     </div>
 
                     <div className='space-y-1'>
                         <label className="label">Your Photo</label>
                         <input type="file"
-                            {...register('photo', { required: true })}
+                            {...register('photo')}
                             onChange={handlePhotoUpload}
                             className="input" placeholder="Upload your profile picture" />
-                        {
-                            errors.email?.type === 'required' && <p className='text-red-500'>Email is required.</p>
-                        }
+                       
                     </div>
 
                     <div><a className="link link-hover">Forgot password?</a></div>
