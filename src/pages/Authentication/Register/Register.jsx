@@ -2,14 +2,19 @@ import axios from 'axios';
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router'
+import useAuth from '../../../hooks/useAuth';
 
 
 const Register = () => {
+
+    const {} = useAuth();
 
     const { register, handleSubmit, formState: {errors} } = useForm();
 
     const onSubmit = (data) => {
         console.log(data);
+
+
     }
 
     const handlePhotoUpload = async (e) => {
