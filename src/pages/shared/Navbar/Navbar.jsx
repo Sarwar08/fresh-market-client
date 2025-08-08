@@ -5,10 +5,11 @@ import { FaRegUser, FaUser } from "react-icons/fa";
 import ThemeController from './ThemeController';
 import { AuthContext } from '../../../contexts/AuthContext/AuthContext';
 import useAuth from '../../../hooks/useAuth';
+import dummyProfileImg from '../../../assets/dummyProfileImg.jpg'
 
 const Navbar = () => {
 
-    const {name} = useAuth();
+    const { user } = useAuth();
 
     const links = <>
         <li><NavLink to='/' className='border-b-2 border-base-100' >Home</NavLink></li>
@@ -17,7 +18,6 @@ const Navbar = () => {
 
     return (
         <nav className="flex shadow-sm bg-base-100 sticky top-0 z-100">
-            {name}
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -37,7 +37,15 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to='/auth' className="btn"><FaUser size={20} /></Link>
+                {
+                    user ?
+                        <>
+                            {user.email}
+                            {user.photoURL ? user.photoURL : <img className='h-8 w-8 rounded-2xl ml-2' src={dummyProfileImg} />}
+                        </>
+                        :
+                        <Link to='/auth' className="btn"><FaUser size={20} /></Link>
+                }
                 <ThemeController />
             </div>
         </nav>
