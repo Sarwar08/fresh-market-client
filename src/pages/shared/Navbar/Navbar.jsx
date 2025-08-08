@@ -6,10 +6,11 @@ import ThemeController from './ThemeController';
 import { AuthContext } from '../../../contexts/AuthContext/AuthContext';
 import useAuth from '../../../hooks/useAuth';
 import dummyProfileImg from '../../../assets/dummyProfileImg.jpg'
+import LoadingSmall from '../../../components/LoadingSmall/LoadingSmall';
 
 const Navbar = () => {
 
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
 
     const links = <>
         <li><NavLink to='/' className='border-b-2 border-base-100' >Home</NavLink></li>
@@ -37,14 +38,19 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
+
+
                 {
-                    user ?
-                        <>
-                            {user.email}
-                            {user.photoURL ? user.photoURL : <img className='h-8 w-8 rounded-2xl ml-2' src={dummyProfileImg} />}
-                        </>
+                    loading ?
+                        <LoadingSmall />
                         :
-                        <Link to='/auth' className="btn"><FaUser size={20} /></Link>
+                        user ?
+                            <>
+                                {user.email}
+                                {user.photoURL ? user.photoURL : <img className='h-8 w-8 rounded-2xl ml-2' src={dummyProfileImg} />}
+                            </>
+                            :
+                            <Link to='/auth' className="btn"><FaUser size={20} /></Link>
                 }
                 <ThemeController />
             </div>
