@@ -1,16 +1,16 @@
 import React from 'react'
 import Logo from '../Logo/Logo'
 import { Link, NavLink } from 'react-router'
-import { FaRegUser, FaUser } from "react-icons/fa";
+
 import ThemeController from './ThemeController';
 import { AuthContext } from '../../../contexts/AuthContext/AuthContext';
 import useAuth from '../../../hooks/useAuth';
-import dummyProfileImg from '../../../assets/dummyProfileImg.jpg'
 import LoadingSmall from '../../../components/LoadingSmall/LoadingSmall';
+import UserProfile from '../../UserProfile/UserProfile';
 
 const Navbar = () => {
 
-    const { user, loading } = useAuth();
+    const { loading } = useAuth();
 
     const links = <>
         <li><NavLink to='/' className='border-b-2 border-base-100' >Home</NavLink></li>
@@ -44,13 +44,7 @@ const Navbar = () => {
                     loading ?
                         <LoadingSmall />
                         :
-                        user ?
-                            <>
-                                {user.email}
-                                {user.photoURL ? user.photoURL : <img className='h-8 w-8 rounded-2xl ml-2' src={dummyProfileImg} />}
-                            </>
-                            :
-                            <Link to='/auth' className="btn"><FaUser size={20} /></Link>
+                        <UserProfile />
                 }
                 <ThemeController />
             </div>
