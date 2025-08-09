@@ -1,13 +1,18 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router'
 import useAuth from '../../../hooks/useAuth';
+import useAxios from '../../../hooks/useAxios';
 
 
 const Register = () => {
 
-    const { createUser } = useAuth();
+    const [profilePhotoURL, setProfilePhotoURL] = useState('');
+
+    const axiosInstance = useAxios();
+
+    const { setLoading, createUser, updateUser } = useAuth();
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -19,6 +24,41 @@ const Register = () => {
                 console.log(result.user);
 
                 // update user
+
+                const profileInfo = {
+                    displayName: data.name,
+                    photoURL: profilePhotoURL,
+                }
+
+                updateUser(profileInfo)
+                    .then(() => {
+                        console.log("Profile updated successfully.");
+                        setLoading(false);
+
+                        // send userInfo to DB
+                        const userInfo = {
+                            email: data.email,
+                            role: data.role.toLowerCase(),
+                            created_at: new Date().toISOString(),
+                            last_log_in: new Date().toISOString(),
+                        }
+
+                        axiosInstance.post('/users', userInfo)
+                            .then(res => {
+                                console.log(res.data);
+                                console.log('Data added successfully.');
+                            })
+                            .catch(error => {
+                                console.log(error);
+                            })
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                    })
+
+
+
+
             })
             .catch(error => {
                 console.log(error.message);
@@ -37,7 +77,7 @@ const Register = () => {
 
         const res = await axios.post(imageUploadUrl, formData);
 
-        console.log(res.data.data.url);
+        setProfilePhotoURL(res.data.data.url);
 
     }
 
@@ -46,7 +86,7 @@ const Register = () => {
             <div className="card-body">
                 <h1 className="text-5xl font-bold">Register</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className="fieldset space-y-2">
-
+                    {/* name */}
                     <div className='space-y-1'>
                         <label className="label">Your Name</label>
                         <input type="text"
@@ -56,7 +96,7 @@ const Register = () => {
                             errors.email?.type === 'required' && <p className='text-red-500'>Name is required.</p>
                         }
                     </div>
-
+                    {/* email */}
                     <div className='space-y-1'>
                         <label className="label">Email</label>
                         <input type="email"
@@ -66,7 +106,7 @@ const Register = () => {
                             errors.email?.type === 'required' && <p className='text-red-500'>Email is required.</p>
                         }
                     </div>
-
+                    {/* password */}
                     <div>
                         <label className="label">Password</label>
                         <input type="password"
@@ -79,17 +119,45 @@ const Register = () => {
                             errors.password?.type === 'minLength' && <p className='text-red-500'>Password must be 6 characters.</p>
                         }
                     </div>
-
+                    {/* photo */}
                     <div className='space-y-1'>
                         <label className="label">Your Photo</label>
                         <input type="file"
                             {...register('photo')}
                             onChange={handlePhotoUpload}
                             className="input" placeholder="Upload your profile picture" />
-                       
+                    </div>
+                    {/* choose your role */}
+                    <div className='space-y-1'>
+                        <label className="label">Choose Your Role</label>
+                        <div className='space-x-4'>
+                            <label className='label hover:text-cyan-500 hover:font-bold'>
+                                <input
+                                    type="radio"
+                                    value='User'
+                                    className="radio radio-primary"
+                                    {...register('role')}
+                                    defaultChecked
+                                />
+                                User
+                            </label>
+
+                            <label className='label hover:text-cyan-500 hover:font-bold'>
+                                <input
+                                    type="radio"
+                                    value='Vendor'
+                                    className="radio radio-primary"
+                                    {...register('role')}
+
+                                />
+                                Vendor
+                            </label>
+                        </div>
                     </div>
 
-                    <div><a className="link link-hover">Forgot password?</a></div>
+                    <div>
+                        <a className="link link-hover">Forgot password?</a>
+                    </div>
 
                     <button className="btn btn-neutral mt-4">Register</button>
                 </form>

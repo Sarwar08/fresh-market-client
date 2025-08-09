@@ -38,15 +38,13 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-
-
+                <ThemeController />
                 {
                     loading ?
                         <LoadingSmall />
                         :
                         <UserProfile />
                 }
-                <ThemeController />
             </div>
         </nav>
     )

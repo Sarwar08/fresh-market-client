@@ -13,21 +13,20 @@ const UserProfile = () => {
         <div>
             {
                 user ?
-                    <div className="dropdown">
-                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                            {user?.photoURL ?
-                                user?.photoURL
-                                :
-                                <img className='h-8 w-8 rounded-2xl ml-2' src={dummyProfileImg} />
-                            }
+                    <div className="dropdown flex">
+                        <div tabIndex={0} role="button" className="mr-4">
+                                <img 
+                                className='h-10 w-10 rounded-full ml-2' 
+                                src={ user.photoURL ? user.photoURL : dummyProfileImg} />
                         </div>
                         <div
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 right-0 shadow border">
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 right-0 top-10 shadow border">
                             {
                                 user &&
                                 <div>
                                     <p>{user?.email}</p>
+                                    <img src={user.photoURL} alt="" />
                                     <p>Name: {user.displayName ? user.displayName : "Not Found"}</p>
                                     
                                     <LogOut />
