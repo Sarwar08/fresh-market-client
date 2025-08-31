@@ -3,10 +3,10 @@
 
 
 
-nav li a.active{
+a.active{
     @apply border-b-2 border-green-300 bg-green-100/50 font-bold;
 }
 
-nav li a:hover{
+a:hover{
     @apply border-b-2 border-green-300 bg-green-100/50;
 }

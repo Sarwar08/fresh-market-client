@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router'
+import { Link, useLocation, useNavigate } from 'react-router'
 import useAuth from '../../../hooks/useAuth';
 import useAxios from '../../../hooks/useAxios';
 
@@ -11,6 +11,10 @@ const Register = () => {
     const [profilePhotoURL, setProfilePhotoURL] = useState('');
 
     const axiosInstance = useAxios();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from || '/';
 
     const { setLoading, createUser, updateUser } = useAuth();
 
@@ -24,7 +28,6 @@ const Register = () => {
                 console.log(result.user);
 
                 // update user
-
                 const profileInfo = {
                     displayName: data.name,
                     photoURL: profilePhotoURL,
@@ -33,7 +36,6 @@ const Register = () => {
                 updateUser(profileInfo)
                     .then(() => {
                         console.log("Profile updated successfully.");
-                        setLoading(false);
 
                         // send userInfo to DB
                         const userInfo = {
@@ -47,6 +49,9 @@ const Register = () => {
                             .then(res => {
                                 console.log(res.data);
                                 console.log('Data added successfully.');
+                                navigate(from);
+                                setLoading(false);
+
                             })
                             .catch(error => {
                                 console.log(error);
@@ -55,10 +60,6 @@ const Register = () => {
                     .catch(error => {
                         console.log(error.message);
                     })
-
-
-
-
             })
             .catch(error => {
                 console.log(error.message);

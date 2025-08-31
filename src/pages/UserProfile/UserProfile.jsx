@@ -28,7 +28,8 @@ const UserProfile = () => {
                                     <p>{user?.email}</p>
                                     <img src={user.photoURL} alt="" />
                                     <p>Name: {user.displayName ? user.displayName : "Not Found"}</p>
-                                    
+                                    <Link to='/auth/updateProfile' className='btn btn-sm btn-info'>Update</Link>
+                                    <Link to='/auth/viewProfile' className='btn btn-sm mx-0.5 btn-info'>View</Link>
                                     <LogOut />
                                 </div>
 
