@@ -12,7 +12,20 @@ import PrivateRoute from "../routes/PrivateRoute";
 import ViewProfile from "../pages/UserProfile/ViewProfile";
 import Forbidden from "../pages/Dashboard/Forbidden";
 import VendorRoute from "../routes/VendorRoute";
-import PostAItem from "../pages/VendorPages/PostAItem";
+import AddProduct from "../pages/VendorPages/AddProduct/AddProduct";
+import AddAdvertisement from "../pages/VendorPages/AddAdvertisement/AddAdvertisement";
+import MyProducts from "../pages/VendorPages/MyProducts/MyProducts";
+import MyAds from "../pages/VendorPages/MyAds/MyAds";
+import AllUsers from "../pages/AdminPages/AllUsers/AllUsers";
+import AllProducts from "../pages/AdminPages/AllProducts/AllProducts";
+import AllAds from "../pages/AdminPages/AllAds/AllAds";
+import AllOrders from "../pages/AdminPages/AllOrders/AllOrders";
+import AdminRoute from "../routes/AdminRoute";
+import ProductDetails from "../pages/Shop/ProductDetails";
+import Payment from "../pages/Dashboard/Payment/Payment";
+import MyCart from "../pages/UserPages/MyCart/MyCart";
+import MyOrders from "../pages/UserPages/MyOrders/MyOrders";
+
 
 const router = createBrowserRouter([
     {
@@ -27,10 +40,24 @@ const router = createBrowserRouter([
                 path: 'shop',
                 Component: Shop,
             },
+
             {
-                path: 'postAItem',
-                element: <VendorRoute> <PostAItem /> </VendorRoute>
+                path: 'products/:id',
+                element: <PrivateRoute> <ProductDetails /> </PrivateRoute>
             },
+            
+
+            // vendor routes
+            {
+                path: 'addProduct',
+                element: <VendorRoute> <AddProduct /> </VendorRoute>
+            },
+            {
+                path: 'addAd',
+                element: <VendorRoute> <AddAdvertisement /> </VendorRoute>
+            },
+
+            // admin routes
             {
                 path: 'forbidden',
                 Component: Forbidden,
@@ -66,9 +93,47 @@ const router = createBrowserRouter([
             {
                 index: true,
                 Component: DashboardHome,
-            }, 
+            },
+            {
+                path: 'myCart',
+                Component: MyCart,
+            },
+            {
+                path: 'myOrders',
+                Component: MyOrders,
+            },
+            {
+                path: 'payment/:cartId',
+                Component: Payment,
+            },
             
+            // vendor routes 
+            {
+                path: 'myProducts',
+                Component: MyProducts,
+            },
+            {
+                path: 'myAds',
+                Component: MyAds,
+            },
             
+            // admin routes
+            {
+                path: 'allUsers',
+                element: <AdminRoute> <AllUsers /> </AdminRoute>,
+            },
+            {
+                path: 'allProducts',
+                element: <AdminRoute> <AllProducts /> </AdminRoute>,
+            },
+            {
+                path: 'allAds',
+                element: <AdminRoute> <AllAds /> </AdminRoute>,
+            },
+            {
+                path: 'allOrders',
+                element: <AdminRoute> <AllOrders /> </AdminRoute>,
+            }
 
         ]
     }

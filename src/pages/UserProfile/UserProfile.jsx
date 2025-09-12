@@ -10,7 +10,7 @@ const UserProfile = () => {
     const { user } = useAuth();
 
     return (
-        <div>
+        <div className=''>
             {
                 user ?
                     <div className="dropdown flex">

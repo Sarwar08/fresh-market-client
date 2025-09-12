@@ -1,0 +1,157 @@
+[
+  {
+    "name": "Vegetables",
+    "parentId": null,
+    "icon": "🥬"
+  },
+  {
+    "name": "Leafy Vegetables",
+    "parentId": "66b4d111000000000001",
+    "icon": "🥗"
+  },
+  {
+    "name": "Root Vegetables",
+    "parentId": "66b4d111000000000001",
+    "icon": "🥕"
+  },
+  {
+    "name": "Other Common Vegetables",
+    "parentId": "66b4d111000000000001",
+    "icon": "🍅"
+  },
+  {
+    "name": "Fruits",
+    "parentId": null,
+    "icon": "🍎"
+  },
+  {
+    "name": "Tropical Fruits",
+    "parentId": "66b4d111000000000005",
+    "icon": "🥭"
+  },
+  {
+    "name": "Citrus Fruits",
+    "parentId": "66b4d111000000000005",
+    "icon": "🍋"
+  },
+  {
+    "name": "Berries & Grapes",
+    "parentId": "66b4d111000000000005",
+    "icon": "🍇"
+  },
+  {
+    "name": "Herbs & Spices",
+    "parentId": null,
+    "icon": "🌿"
+  },
+  {
+    "name": "Fresh Herbs",
+    "parentId": "66b4d111000000000009",
+    "icon": "🍃"
+  },
+  {
+    "name": "Spices",
+    "parentId": "66b4d111000000000009",
+    "icon": "🌶️"
+  },
+  {
+    "name": "Fish & Seafood",
+    "parentId": null,
+    "icon": "🐟"
+  },
+  {
+    "name": "Freshwater Fish",
+    "parentId": "66b4d11100000000000c",
+    "icon": "🐠"
+  },
+  {
+    "name": "Sea Fish",
+    "parentId": "66b4d11100000000000c",
+    "icon": "🐡"
+  },
+  {
+    "name": "Shellfish",
+    "parentId": "66b4d11100000000000c",
+    "icon": "🦐"
+  },
+  {
+    "name": "Meat & Poultry",
+    "parentId": null,
+    "icon": "🍗"
+  },
+  {
+    "name": "Chicken",
+    "parentId": "66b4d111000000000010",
+    "icon": "🐔"
+  },
+  {
+    "name": "Beef",
+    "parentId": "66b4d111000000000010",
+    "icon": "🐄"
+  },
+  {
+    "name": "Mutton",
+    "parentId": "66b4d111000000000010",
+    "icon": "🐑"
+  },
+  {
+    "name": "Dairy & Eggs",
+    "parentId": null,
+    "icon": "🥚"
+  },
+  {
+    "name": "Milk",
+    "parentId": "66b4d111000000000014",
+    "icon": "🥛"
+  },
+  {
+    "name": "Eggs",
+    "parentId": "66b4d111000000000014",
+    "icon": "🍳"
+  },
+  {
+    "name": "Grains & Pulses",
+    "parentId": null,
+    "icon": "🌾"
+  },
+  {
+    "name": "Rice",
+    "parentId": "66b4d111000000000017",
+    "icon": "🍚"
+  },
+  {
+    "name": "Lentils",
+    "parentId": "66b4d111000000000017",
+    "icon": "🍲"
+  },
+  {
+    "name": "Nuts & Seeds",
+    "parentId": null,
+    "icon": "🥜"
+  },
+  {
+    "name": "Peanuts",
+    "parentId": "66b4d11100000000001a",
+    "icon": "🥜"
+  },
+  {
+    "name": "Beverage Ingredients",
+    "parentId": null,
+    "icon": "🍵"
+  },
+  {
+    "name": "Tea Leaves",
+    "parentId": "66b4d11100000000001c",
+    "icon": "🍵"
+  },
+  {
+    "name": "Miscellaneous",
+    "parentId": null,
+    "icon": "🛒"
+  },
+  {
+    "name": "Honey",
+    "parentId": "66b4d11100000000001e",
+    "icon": "🍯"
+  }
+]

@@ -19,7 +19,7 @@ const Navbar = () => {
     </>
 
     return (
-        <nav className="flex shadow-sm bg-base-100 sticky top-0 z-100">
+        <nav className="flex shadow-sm bg-base-100/50 sticky top-0 z-100">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -31,7 +31,7 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <div className='ml-2'>
+                <div className='ml-2 block'>
                     <Logo />
                 </div>
             </div>
@@ -40,7 +40,7 @@ const Navbar = () => {
                     {links}
                 </ul>
             </div>
-            <div className="navbar-end">
+            <div className="navbar-end mr-2">
                 <ThemeController />
                 {
                     loading ?

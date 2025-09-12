@@ -2,6 +2,10 @@
 @plugin "daisyui";
 
 
+/* html, body {
+    overflow-x: hidden;
+    width: 100%;
+} */
 
 a.active{
     @apply border-b-2 border-green-300 bg-green-100/50 font-bold;

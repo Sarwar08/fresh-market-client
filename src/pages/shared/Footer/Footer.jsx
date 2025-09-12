@@ -3,7 +3,7 @@ import Logo from '../Logo/Logo'
 
 const Footer = () => {
   return (
-    <footer className="footer sm:footer-horizontal bg-base-300 text-base-content p-10">
+    <footer className="footer sm:footer-horizontal bg-base-300/70 text-base-content p-10">
   <aside>
     <Logo />
     <p>
@@ -11,6 +11,9 @@ const Footer = () => {
       <br />
       Providing reliable tech since 1992
     </p>
+    <div>
+
+    </div>
   </aside>
   <nav>
     <h6 className="footer-title">Services</h6>

@@ -5,7 +5,7 @@ import { Outlet } from 'react-router'
 
 const RootLayout = () => {
     return (
-        <div>
+        <div className='bg-[url(/bgImages/bgImg2.jpg)] bg-violet-900/90 bg-blend-multiply bg- bg-center bg-repeat-y'>
             <Navbar />
             <div className='min-h-screen'>
                 <Outlet />
