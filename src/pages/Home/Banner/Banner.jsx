@@ -12,23 +12,23 @@ const Banner = () => {
         <Carousel autoPlay={true} infiniteLoop={true} centerMode={true}centerSlidePercentage={90} className='max-w-4xl mx-auto m-4' >
             <div className=''>
                 <img src={banner1} className=''/>
-                <p className="legend">Legend 1</p>
+                
             </div>
             <div>
                 <img src={banner2} />
-                <p className="legend">Legend 1</p>
+                {/* <p className="legend">Legend 1</p> */}
             </div>
             <div>
                 <img src={banner3} />
-                <p className="legend">Legend 1</p>
+                {/* <p className="legend">Legend 1</p> */}
             </div>
             <div>
                 <img src={banner4} />
-                <p className="legend">Legend 1</p>
+                {/* <p className="legend">Legend 1</p> */}
             </div>
             <div>
                 <img src={banner5} />
-                <p className="legend">Legend 1</p>
+                {/* <p className="legend">Legend 1</p> */}
             </div>
             
             

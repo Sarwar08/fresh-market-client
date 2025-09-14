@@ -38,7 +38,6 @@ const AddAdvertisement = () => {
             })
     }
 
-
     const uploadImage = async (e) => {
         const image = e.target.files[0];
 

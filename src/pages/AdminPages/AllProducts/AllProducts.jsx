@@ -2,17 +2,23 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import MyProduct from '../../VendorPages/MyProducts/MyProduct';
+import Loading from '../../../components/Loading/Loading';
+import Product from './Product';
 
 const AllProducts = () => {
   const axiosSecure = useAxiosSecure();
 
-    const {data: products} = useQuery({
+    const {data: products, isLoading} = useQuery({
         queryKey: ['my-products'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/products`)
             return res.data;
         }
     })
+
+    if (isLoading) {
+        <Loading />
+    }
 
     return (
         <div className="overflow-x-auto">

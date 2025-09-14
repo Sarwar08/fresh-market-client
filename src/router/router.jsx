@@ -25,6 +25,8 @@ import ProductDetails from "../pages/Shop/ProductDetails";
 import Payment from "../pages/Dashboard/Payment/Payment";
 import MyCart from "../pages/UserPages/MyCart/MyCart";
 import MyOrders from "../pages/UserPages/MyOrders/MyOrders";
+import MyWishList from "../pages/UserPages/MyWishList/MyWishList";
+import EditProduct from "../pages/VendorPages/MyProducts/EditProduct/EditProduct";
 
 
 const router = createBrowserRouter([
@@ -95,6 +97,10 @@ const router = createBrowserRouter([
                 Component: DashboardHome,
             },
             {
+                path: 'myWishList',
+                Component: MyWishList,
+            },
+            {
                 path: 'myCart',
                 Component: MyCart,
             },
@@ -111,6 +117,10 @@ const router = createBrowserRouter([
             {
                 path: 'myProducts',
                 Component: MyProducts,
+            },
+            {
+                path: 'editProduct/:id',
+                Component: EditProduct,
             },
             {
                 path: 'myAds',

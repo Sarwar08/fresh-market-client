@@ -6,7 +6,7 @@ import AllAd from './AllAd';
 const AllAds = () => {
     const axiosSecure = useAxiosSecure();
 
-    const { data: ads } = useQuery({
+    const { data: ads, refetch } = useQuery({
         queryKey: ['all-ads'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/advertisements`)
@@ -30,7 +30,7 @@ const AllAds = () => {
                 </thead>
                 <tbody>
                     {
-                        ads?.map((ad, index) => <AllAd key={ad._id} ad={ad} index={index} />)
+                        ads?.map((ad, index) => <AllAd key={ad._id} ad={ad} index={index} refetch= {refetch} />)
                     }
                 </tbody>
             </table>

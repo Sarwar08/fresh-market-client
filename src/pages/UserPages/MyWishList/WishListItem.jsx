@@ -1,19 +1,18 @@
 import React from 'react'
 import { MdDelete } from 'react-icons/md';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
-const AllOrder = ({product, index, refetch}) => {
-
+const WishListItem = ({product, index, refetch}) => {
     const navigate = useNavigate();
+
+    const { _id: cart_id, product_Id, itemName, itemImage, unit, qty, price, totalPrice, payment_status } = product;
 
     const axiosSecure = useAxiosSecure();
 
-    const { _id: cart_id, itemName, itemImage, unit, qty, price, totalPrice, payment_status } = product;
-
-    const handlePay = (id) => {
-        navigate(`/dashboard/payment/${id}`);
+    const handleAddToCart = (id) => {
+        
     }
 
     const handleDelete = async (id) => {
@@ -22,12 +21,12 @@ const AllOrder = ({product, index, refetch}) => {
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
                 icon: "warning",
+                color: "#fff",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                background: "#B20000",
-                color: "#fff",
-                confirmButtonText: "Yes, delete it!"
+                confirmButtonText: "Yes, delete it!",
+                background: "#B20000"
             }).then((result) => {
                 if (result.isConfirmed) {
                     axiosSecure.delete(`/carts/${id}`)
@@ -50,12 +49,11 @@ const AllOrder = ({product, index, refetch}) => {
             });
         }
 
-    if (payment_status === 'paid') {
-        
+    if (payment_status === 'wishlist') {
         return (
             <tr>
                 <th>
-                    {index+1}
+                    {index + 1}
                 </th>
                 <td>
                     <div className="flex items-center gap-3">
@@ -72,12 +70,12 @@ const AllOrder = ({product, index, refetch}) => {
                 <td>
                     {itemName}
                 </td>
-                <td>{qty} {unit} x {price} BDT</td>
-                <td>{totalPrice} BDT</td>
+                <td> {price} BDT</td>
+                {/* <td>{totalPrice} BDT</td> */}
                 <td>{payment_status}</td>
                 <th className='flex gap-1'>
-                    <button disabled={payment_status === 'paid'} onClick={() => handlePay(cart_id)} className="btn btn-info btn-sm">Pay Now</button>
-                    <button onClick={() => handleDelete(cart_id)} className="btn btn-error btn-sm"><MdDelete size={18} /></button>
+                    <Link to={`/products/${product_Id}`} className="btn btn-info btn-sm">Veiw Details </Link>
+                    <button onClick={() => handleDelete(cart_id)} disabled={payment_status === 'paid'} className="btn btn-error btn-sm"><MdDelete size={18} /></button>
                 </th>
             </tr>
         )
@@ -85,4 +83,4 @@ const AllOrder = ({product, index, refetch}) => {
 
 }
 
-export default AllOrder
+export default WishListItem

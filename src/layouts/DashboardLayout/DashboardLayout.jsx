@@ -4,11 +4,16 @@ import { Link, NavLink, Outlet } from 'react-router'
 import ThemeController from '../../pages/shared/Navbar/ThemeController'
 import useUserRole from '../../hooks/useUserRole'
 import UserProfile from '../../pages/UserProfile/UserProfile'
+import Loading from '../../components/Loading/Loading'
 
 const DashboardLayout = () => {
 
 
     const { role, roleLoading } = useUserRole();
+
+    if (roleLoading) {
+        <Loading />
+    }
 
 
     return (
@@ -67,6 +72,9 @@ const DashboardLayout = () => {
                     {/* <li><NavLink to='/dashboard'>Home</NavLink></li> */}
 
                     <li>
+                        <NavLink to ='/dashboard/myWishlist'> My Wishlist </NavLink>
+                    </li>
+                    <li>
                         <NavLink to ='/dashboard/myCart'> My Cart </NavLink>
                     </li>
                     <li>
@@ -84,7 +92,7 @@ const DashboardLayout = () => {
 
                     {/* vendors Link */}
                     {
-                        !roleLoading && role === 'vendor' && <>
+                        !roleLoading && role === 'vendor' && <div className='border border-amber-700 rounded-2xl bg-amber-700/20 my-4'>
                             <li>
                                 <Link to='/dashboard'>Vendor Home</Link>
                             </li>
@@ -100,7 +108,7 @@ const DashboardLayout = () => {
                             <li>
                                 <NavLink to='/dashboard/myAds'>My Advertisement</NavLink>
                             </li>
-                        </>
+                        </div>
                     }
 
                     {/* admin links */}

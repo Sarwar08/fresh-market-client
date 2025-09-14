@@ -8,7 +8,7 @@ const AllUsers = () => {
 
     const axiosSecure = useAxiosSecure();
 
-    const { data: users } = useQuery({
+    const { data: users, refetch } = useQuery({
         queryKey: ['all-Users'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/users`);
@@ -30,7 +30,7 @@ const AllUsers = () => {
                 </thead>
                 <tbody>
                     {
-                        users?.map((user, index) => <User key={user._id} user={user} index={index} />)
+                        users?.map((user, index) => <User key={user._id} user={user} index={index} refetch={refetch} />)
                     }
                 </tbody>
             </table>

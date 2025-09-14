@@ -1,50 +1,69 @@
+import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
-import img1 from '../../../assets/addProduct.jpg'
-import useAuth from '../../../hooks/useAuth'
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import axios from 'axios';
+import useAxiosSecure from '../../../../hooks/useAxiosSecure'
+import { useNavigate, useParams } from 'react-router';
+import Loading from '../../../../components/Loading/Loading';
 import { useForm } from 'react-hook-form';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router';
+import useAuth from '../../../../hooks/useAuth';
+import DatePicker from 'react-datepicker';
+import axios from 'axios';
+import useUserRole from '../../../../hooks/useUserRole';
 
-const AddProduct = () => {
-
-    const { user } = useAuth();
+const EditProduct = () => {
 
     const axiosSecure = useAxiosSecure();
 
-    const navigate = useNavigate();
+    const { user } = useAuth();
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const {role} = useUserRole()
+
+    const navigate = useNavigate();
 
     const today = new Date();
     const [startDate, setStartDate] = useState(today);
 
     const [itemImg, setItemImg] = useState('');
+    const [statusChange, setStatusChange] = useState('');
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+
+    const { id } = useParams();
+    console.log(id);
+
+    const { data: product, isLoading } = useQuery({
+        queryKey: ['single-product', id],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/products/${id}`);
+            return res.data;
+        }
+    })
+
+    if (isLoading) {
+        return <Loading />
+    }
+
+    console.log(product);
+
+    const { _id: productId, email, name, marketName, date, marketDescription, itemName, status, itemImage, price, unit, itemDescription, adOffer } = product;
 
     const onSubmit = (data) => {
         // console.log(data);
 
         const productInfo = {
-            email: data.email,
-            name: data.name,
             marketName: data.marketName,
-            date: startDate.toISOString(),
             marketDescription: data.marketDescription,
             itemName: data.itemName,
-            status: data.status,
-            itemImage: itemImg,
             price: data.price,
             unit: data.unit,
+            status: data.status,
             itemDescription: data.itemDescription,
-
         }
 
         console.log(productInfo);
 
-        axiosSecure.post('/products', productInfo)
+        axiosSecure.patch(`/products/${productId}`, productInfo)
             .then(res => {
                 console.log(res.data);
                 Swal.fire({
@@ -54,33 +73,18 @@ const AddProduct = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                navigate('/dashboard/myProducts');
+                navigate(`/dashboard/${role === 'admin' ? 'allProducts' :  'myProducts'}`);
             })
             .catch(error => {
                 console.log(error.message);
             })
     }
 
-    const uploadImage = async (e) => {
-        const image = e.target.files[0];
-
-        const formData = new FormData();
-        formData.append('image', image);
-
-        const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_IMAGE_UPLOAD_KEY}`;
-
-        const res = await axios.post(imageUploadUrl, formData);
-
-        setItemImg(res.data.data.url)
-    }
-    console.log(itemImg);
-
-
     return (
         <div className="hero bg-base-200/40 min-h-screen">
             <div className="hero-content flex-col lg:flex-row-reverse md:items-start">
 
-                <img src={img1} className='w-full md:max-w-lg' />
+                <img src={itemImage} className='w-full md:max-w-lg' />
 
                 <div className="flex-1 card bg-orange-900/30 shadow-2xl">
                     <div className="card-body">
@@ -92,7 +96,7 @@ const AddProduct = () => {
                                 <label className="label">Vendor Email</label>
                                 <input type="email"
                                     {...register('email', { required: true })}
-                                    className="input" placeholder="Email" readOnly value={user.email} />
+                                    className="input" placeholder="Email" readOnly value={email} />
                                 {
                                     errors.email?.type === 'required' && <p>Email is Required.</p>
                                 }
@@ -102,20 +106,20 @@ const AddProduct = () => {
                                 <label className="label">Vendor Name</label>
                                 <input type="text"
                                     {...register('name', { required: true })}
-                                    className="input" placeholder="Name of Vendor" readOnly value={user.displayName} />
+                                    className="input" placeholder="Name of Vendor" readOnly value={name} />
                             </div>
 
                             <div className='flex flex-col gap-2 md:flex-row md:justify-between md:items-center'>
                                 <label className="label">Market Name</label>
                                 <input type="text"
                                     {...register('marketName', { required: true })}
-                                    className="input" placeholder="Market Name" defaultValue='Karwan Bazar' />
+                                    className="input" placeholder="Market Name" defaultValue={marketName} />
                             </div>
 
                             <div className='flex flex-col gap-2 md:flex-row md:justify-between md:items-center'>
                                 <label className="label">Date</label>
                                 <div>
-                                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} className='input' />
+                                    <DatePicker disabled selected={date} onChange={(date) => setStartDate(date)} className='input' />
                                 </div>
                             </div>
 
@@ -123,26 +127,32 @@ const AddProduct = () => {
                                 <label className="label">Market Description</label>
                                 <textarea type="text"
                                     {...register('marketDescription', { required: true })}
-                                    className="textarea" placeholder="Market Description" defaultValue='This market is located in the Dhaka Area. It was established in 1972. It is a very popular market in this country.' />
+                                    className="textarea" placeholder="Market Description" defaultValue={marketDescription} />
                             </div>
 
                             <div className='flex flex-col gap-2 md:flex-row md:justify-between md:items-center'>
                                 <label className="label">Item Name</label>
                                 <input type="text"
                                     {...register('itemName', { required: true })}
-                                    className="input" placeholder="Item Name" defaultValue='' />
+                                    className="input" placeholder="Item Name" defaultValue={itemName} />
                             </div>
 
                             <div className='flex flex-col gap-2 md:flex-row md:justify-between md:items-center'>
                                 <label className="label">Status</label>
-                                <input type="text"
-                                    {...register('status', { required: true })}
-                                    className="input" placeholder="Status" readOnly value='pending' />
+
+                                <select {...register('status', { required: true })} defaultValue={status} className="select">
+                                    <option disabled={true}>{status}</option>
+                                    <option disabled={role === 'vendor'? true : false} >accepted</option>
+                                </select>
+
                             </div>
+
+
 
                             <div className='flex flex-col gap-2 md:flex-row md:justify-between md:items-center'>
                                 <label className="label">Product Image</label>
-                                <input type="file" className="input" onChange={uploadImage} placeholder="Image URL" />
+                                <input disabled type="file" className="input"
+                                    placeholder="Image URL" />
                             </div>
 
                             <div className='flex flex-col gap-2 md:flex-row md:justify-between md:items-center'>
@@ -150,7 +160,7 @@ const AddProduct = () => {
                                 <div>
                                     <input type="number"
                                         {...register('price', { required: true })}
-                                        className="input w-36" placeholder="Price per Unit" />
+                                        className="input w-36" placeholder="Price per Unit" defaultValue={price} />
                                     <select defaultValue=""
                                         {...register('unit', { required: true })}
                                         className="select w-24">
@@ -164,18 +174,18 @@ const AddProduct = () => {
                                 <label className="label">Item Description</label>
                                 <input type="text"
                                     {...register('itemDescription', { required: true })}
-                                    className="input" placeholder="Item description" defaultValue="This item is very fresh." />
+                                    className="input" placeholder="Item description" defaultValue={itemDescription} />
                             </div>
 
                             <div className=''>
-                                <button className="btn btn-neutral mt-4 w-full">Add</button>
+                                <button className="btn btn-neutral mt-4 w-full">Update Product</button>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
 
-export default AddProduct
+export default EditProduct

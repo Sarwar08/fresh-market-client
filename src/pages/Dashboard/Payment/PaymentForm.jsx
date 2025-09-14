@@ -112,7 +112,9 @@ const PaymentForm = () => {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
-                        title: "Your work has been saved",
+                        title: "Your payment has been Successfully completed.",
+                        color: "#fff",
+                        background: "#006600",
                         showConfirmButton: false,
                         timer: 1500
                     });

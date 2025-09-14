@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const SingleAd = ({ product }) => {
 
-    const { itemName, itemImage, adOffer } = product;
+    const { itemName, itemImage, adOffer, adStatus } = product;
 
     const axiosInstance = useAxios();
 
@@ -16,7 +16,7 @@ const SingleAd = ({ product }) => {
         }
     })
 
-    if (adOffer) {
+    if (adOffer && adStatus === "accepted") {
 
         return (
             <div className="card bg-base-100 shadow-sm relative">
@@ -26,6 +26,7 @@ const SingleAd = ({ product }) => {
                             key={ad._id}
                             className='absolute w-20'
                         >
+                            
                             {
                                 adOffer === '25%'
                                 &&
@@ -33,12 +34,16 @@ const SingleAd = ({ product }) => {
                                 &&
                                 ad.image !== ''
                                 &&
+                                ad.status === 'accepted'
+                                &&
                                 <img src={ad.image} alt="" />
                             }
                             {
                                 adOffer === '50%'
                                 &&
                                 ad.adTitle === '50% Discount'
+                                &&
+                                ad.status === 'accepted'
                                 &&
                                 ad.image !== ''
                                 &&
@@ -52,7 +57,7 @@ const SingleAd = ({ product }) => {
                 </figure>
                 <div className="card-body">
                     <h2 className="card-title">{itemName}</h2>
-                    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+                    <p>{adOffer} Discount</p>
                     <div className="card-actions justify-end">
                         <button className="btn btn-primary">Buy Now</button>
                     </div>

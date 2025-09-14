@@ -13,7 +13,7 @@ const ProductDetails = () => {
 
     const axiosSecure = useAxiosSecure();
 
-    const {user} = useAuth();
+    const { user } = useAuth();
 
     const { id } = useParams();
     console.log(id);
@@ -23,7 +23,7 @@ const ProductDetails = () => {
     const axiosInstance = useAxios();
 
     const { data: product, isLoading } = useQuery({
-        queryKey: ['product-details'],
+        queryKey: ['product-details', id],
         queryFn: async () => {
             const res = await axiosInstance.get(`/products/${id}`);
             return res.data;
@@ -32,17 +32,27 @@ const ProductDetails = () => {
 
     if (isLoading) return <Loading />
 
-    const { _id: productId, itemName, itemImage, marketDescription, price, unit, itemDescription, adOffer } = product;
+    const { _id: productId, itemName, itemImage, marketDescription, price, unit, itemDescription, adOffer, marketName, date } = product;
 
 
     const handleKg = (e) => {
         const kg = e.target.value;
         const conKg = parseInt(kg);
         setQty(conKg);
-        console.log(qty);
     }
 
-    const handleCart = (product_Id) => {
+    const handleCart = (product_Id, paymentStatus) => {
+
+
+        if (paymentStatus === 'wishlist') {
+            console.log('go ahead');
+        }
+        else{
+            if (qty < 1){
+                return;
+            }
+        }
+
 
         const totalPrice = price * qty;
 
@@ -55,7 +65,7 @@ const ProductDetails = () => {
             price,
             unit,
             totalPrice,
-            payment_status: 'pending', // default pending, if pending cart, paid order.
+            payment_status: paymentStatus, // default pending || wishlist, if wishlist wishlist, pending cart, paid order.
         }
 
         console.log(ordersInfo);
@@ -66,11 +76,18 @@ const ProductDetails = () => {
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
-                    title: "Your work has been saved",
+                    background: "#006600",
+                    color: "#fff",
+                    title: "Your item has been added.",
                     showConfirmButton: false,
                     timer: 1500,
                 });
-                navigate('/dashboard/myCart');
+                if (paymentStatus === 'wishlist'){
+                    navigate('/dashboard/myWishlist');
+                }
+                else {
+                    navigate('/dashboard/myCart');
+                }
             })
             .catch(error => {
                 console.log(error.message);
@@ -78,29 +95,34 @@ const ProductDetails = () => {
     }
 
     return (
-        <div className="hero bg-base-200 min-h-screen">
+        <div className="hero bg-base-200/60 min-h-screen">
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <img
                     src={itemImage}
-                    className="max-w-sm rounded-lg shadow-2xl"
+                    className="max-w-xl rounded-lg shadow-2xl"
                 />
-                <div>
+                <div className='space-y-4 max-w-md'>
                     {adOffer && <span className='bg-green-500 rounded px-2 font-bold'>{adOffer} Discount</span>}
                     <h1 className="text-5xl font-bold">{itemName}</h1>
                     <p className="py-6">
                         {itemDescription}
                     </p>
+                    <p>Market Name: {marketName}</p>
                     <p className="">
                         {marketDescription}
                     </p>
+                    <p>Dated: {date?.slice(0, 10)}</p>
                     <p>Price: {price} BDT / {unit}</p>
 
-                    <label className='label'>How many Kg?</label>
-                    <input onChange={handleKg} type="number" className='input w-12' />
+                    <div className='space-x-2'>
+                        <label className='label'>How many Kg? </label>
+                        <input onChange={handleKg} value={qty} min={1} type="number" className='input w-12' /> Kg
+                        {qty < 1 && <p className='text-xs text-red-500/50'>Quantity must be more than 0.</p>}
+                    </div>
 
                     <div>
-                        <button onClick={() => handleCart(productId)} className="btn btn-warning mt-5 mr-2"> Add to Cart</button>
-                        <button className="btn btn-error mt-5"> Add to Wishlist</button>
+                        <button onClick={() => handleCart(productId, 'pending')} className="btn btn-warning mt-5 mr-2"> Add to Cart</button>
+                        <button onClick={() => handleCart(productId, 'wishlist')} className="btn btn-error mt-5"> Add to Wishlist</button>
                     </div>
                 </div>
             </div>

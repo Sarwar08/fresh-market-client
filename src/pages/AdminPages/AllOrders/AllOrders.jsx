@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import useAuth from '../../../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import AllOrder from './AllOrder';
 
 const AllOrders = () => {
     const axiosSecure = useAxiosSecure();
-    const { user } = useAuth();
 
-    const { data: myOrders, } = useQuery({
+    const { data: myOrders, refetch } = useQuery({
         queryKey: ['my-orders'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/carts`);
@@ -21,7 +19,7 @@ const AllOrders = () => {
 
     return (
         <div className="overflow-x-auto">
-            {myOrders?.length}
+            {/* {myOrders?.length} */}
             <table className="table">
                 {/* head */}
                 <thead>
@@ -37,7 +35,7 @@ const AllOrders = () => {
                 </thead>
                 <tbody>
                     {
-                        paidOrders?.map((product, index) => <AllOrder key={product._id} product={product} index={index} />)
+                        paidOrders?.map((product, index) => <AllOrder key={product._id} product={product} index={index} refetch={refetch} />)
                     }
                 </tbody>
             </table>

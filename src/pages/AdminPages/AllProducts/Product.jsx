@@ -1,10 +1,11 @@
 import React from 'react'
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
+import { Link } from 'react-router';
 
 const Product = ({product, index}) => {
   
-      const { itemName, itemImage, marketName, date, status, price, unit } = product;
+      const { _id, itemName, itemImage, marketName, date, status, price, unit } = product;
   
       const newDate = date.slice(0, 10);
   
@@ -32,7 +33,7 @@ const Product = ({product, index}) => {
               <td>{newDate}</td>
               <td>{status}</td>
               <th className='flex gap-1'>
-                  <button className="btn btn-info btn-sm"><BiSolidEditAlt size={18} /></button>
+                  <Link to={`/dashboard/editProduct/${_id}`}  className="btn btn-info btn-sm"><BiSolidEditAlt size={18} /></Link>
                   <button className="btn btn-error btn-sm"><MdDelete size={18} /></button>
               </th>
           </tr>

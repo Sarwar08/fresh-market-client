@@ -9,7 +9,7 @@ const MyCart = () => {
     const axiosSecure = useAxiosSecure();
     const {user} = useAuth();
 
-    const { data: myCart, } = useQuery({
+    const { data: myCart, refetch } = useQuery({
         queryKey: ['my-cart'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/carts?email=${user.email}`);
@@ -17,9 +17,11 @@ const MyCart = () => {
         }
     })
 
+    const unpaidCart = myCart?.filter(cart => cart.payment_status === 'pending');
+
     return (
         <div className="overflow-x-auto">
-            {myCart?.length}
+            {unpaidCart?.length}
             <table className="table">
                 {/* head */}
                 <thead>
@@ -35,7 +37,7 @@ const MyCart = () => {
                 </thead>
                 <tbody>
                     {
-                        myCart?.map((product, index) => <CartProduct key={product._id} product={product} index={index} /> )
+                        unpaidCart?.map((product, index) => <CartProduct key={product._id} product={product} index={index} refetch={refetch} /> )
                     }
                 </tbody>
             </table>

@@ -1,43 +1,41 @@
 import React from 'react'
-
-import MyOrder from './MyOrder';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useAuth from '../../../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
+import WishListItem from './WishListItem';
 
-const MyOrders = () => {
+const MyWishList = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
 
-    const { data: myOrders, } = useQuery({
-        queryKey: ['my-orders'],
+    const { data: myCart, refetch} = useQuery({
+        queryKey: ['my-cart'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/carts?email=${user.email}`);
             return res.data;
         }
     })
 
-    const paidCarts = myOrders?.filter(order => order.payment_status === 'paid');
+    const wishlistCart = myCart?.filter(cart => cart.payment_status === 'wishlist');
 
     return (
         <div className="overflow-x-auto">
-            {paidCarts?.length}
-            <table className="table">
+            {wishlistCart?.length}
+            <table className="table bg-amber-800/50">
                 {/* head */}
-                <thead>
+                <thead className='bg-rose-600/70 text-xl'>
                     <tr>
                         <th>#</th>
                         <th>Image</th>
                         <th>name</th>
-                        <th>Qty x Unit Price</th>
-                        <th>Total Price</th>
-                        <th>Payment <br /> Status</th>
+                        <th> Unit Price</th>
+                        <th>Listed As </th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        paidCarts?.map((product, index) => <MyOrder key={product._id} product={product} index={index} />)
+                        wishlistCart?.map((product, index) => <WishListItem key={product._id} product={product} index={index} refetch={refetch} />)
                     }
                 </tbody>
             </table>
@@ -45,4 +43,4 @@ const MyOrders = () => {
     )
 }
 
-export default MyOrders
+export default MyWishList

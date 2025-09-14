@@ -15,12 +15,14 @@ const Shop = () => {
         }
     })
 
+    const acceptedProducts = products?.filter(product => product.status === 'accepted');
+
     return (
-        <div>
-            <h1>{products?.length}</h1>
+        <div className='my-6'>
+            {/* <h1>{products?.length}</h1> */}
             <div className='grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-6 overflow-x-auto'>
                 {
-                    products?.map(product => <ProductForShop key={product._id} product={product} /> )
+                    acceptedProducts?.map(product => <ProductForShop key={product._id} product={product} /> )
                 }
             </div>
         </div>
