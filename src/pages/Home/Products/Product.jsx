@@ -7,7 +7,7 @@ const Product = ({ product }) => {
 marketName, date } = product;
 
     return (
-        <div className="card bg-base-100 shadow-sm relative">
+        <div className="card bg-base-100/50 shadow-sm relative">
             <figure>
                 <img
                     src={itemImage} />
@@ -18,8 +18,8 @@ marketName, date } = product;
                 <p>{marketName}</p>
                 <p>{date.slice(0, 10)}</p>
                 <p>{price} BDT / {unit}</p>
-                <div className="card-actions justify-end">
-                    <Link to={`/products/${_id}`} className="btn btn-primary mt-3">View Details</Link>
+                <div className="card-actions justify-center">
+                    <Link to={`/products/${_id}`} className="btn btn-sm btn-primary mt-3">View Details</Link>
                 </div>
             </div>
         </div>

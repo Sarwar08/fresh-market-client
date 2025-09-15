@@ -4,12 +4,13 @@ import MyOrder from './MyOrder';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useAuth from '../../../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
+import Loading from '../../../components/Loading/Loading';
 
 const MyOrders = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
 
-    const { data: myOrders, } = useQuery({
+    const { data: myOrders, isLoading } = useQuery({
         queryKey: ['my-orders'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/carts?email=${user.email}`);
@@ -18,6 +19,10 @@ const MyOrders = () => {
     })
 
     const paidCarts = myOrders?.filter(order => order.payment_status === 'paid');
+
+    if (isLoading) {
+        return <Loading />;
+    }
 
     return (
         <div className="overflow-x-auto">

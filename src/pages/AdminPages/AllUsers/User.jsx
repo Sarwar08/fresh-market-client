@@ -20,22 +20,22 @@ const User = ({ user, index, refetch }) => {
     }
 
     return (
-        <tr>
+        <tr >
             <th>{index + 1}</th>
             <td>{email}</td>
             <td>{role}</td>
-            <td className='space-x-2'>
+            <td className='space-x-2 space-y-2 '>
                 <span onClick={() => handleChangeRole(email, 'admin')} 
                 disabled={role ==='admin'} 
-                className='btn btn-sm'>Change to <br />Admin</span>
+                className='btn btn-sm bg-red-800 py-6'>Change to <br /> Admin</span>
 
                 <span onClick={() => handleChangeRole(email, 'vendor')} 
                 disabled={role === 'vendor'} 
-                className='btn btn-sm'>Change to <br /> Vendor</span>
+                className='btn btn-sm bg-amber-600 py-6'>Change to <br /> Vendor</span>
 
                 <span onClick={() => handleChangeRole(email, 'user')} 
                 disabled={role === 'user'} 
-                className='btn btn-sm'>Change to <br /> User</span>
+                className='btn btn-sm bg-green-500 py-6'>Change to <br /> User</span>
             </td>
         </tr>
     )

@@ -3,12 +3,13 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useAuth from '../../../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import WishListItem from './WishListItem';
+import Loading from '../../../components/Loading/Loading';
 
 const MyWishList = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
 
-    const { data: myCart, refetch} = useQuery({
+    const { data: myCart, isLoading, refetch} = useQuery({
         queryKey: ['my-cart'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/carts?email=${user.email}`);
@@ -18,9 +19,13 @@ const MyWishList = () => {
 
     const wishlistCart = myCart?.filter(cart => cart.payment_status === 'wishlist');
 
+    if (isLoading) {
+        return <Loading />;
+    }
+
     return (
         <div className="overflow-x-auto">
-            {wishlistCart?.length}
+            <p className='text-3xl text-rose-400 font-semibold bg-amber-300/20 text-center py-4'>No of Items in the wishlist: {wishlistCart?.length} </p>
             <table className="table bg-amber-800/50">
                 {/* head */}
                 <thead className='bg-rose-600/70 text-xl'>

@@ -1,30 +1,23 @@
 import { useQuery } from '@tanstack/react-query'
-import React, { useState } from 'react'
+import React from 'react'
 import useAxiosSecure from '../../../../hooks/useAxiosSecure'
 import { useNavigate, useParams } from 'react-router';
 import Loading from '../../../../components/Loading/Loading';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
-import useAuth from '../../../../hooks/useAuth';
+
 import DatePicker from 'react-datepicker';
-import axios from 'axios';
+
 import useUserRole from '../../../../hooks/useUserRole';
 
 const EditProduct = () => {
 
     const axiosSecure = useAxiosSecure();
 
-    const { user } = useAuth();
 
     const {role} = useUserRole()
 
     const navigate = useNavigate();
-
-    const today = new Date();
-    const [startDate, setStartDate] = useState(today);
-
-    const [itemImg, setItemImg] = useState('');
-    const [statusChange, setStatusChange] = useState('');
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -46,7 +39,7 @@ const EditProduct = () => {
 
     console.log(product);
 
-    const { _id: productId, email, name, marketName, date, marketDescription, itemName, status, itemImage, price, unit, itemDescription, adOffer } = product;
+    const { _id: productId, email, name, marketName, date, marketDescription, itemName, status, itemImage, price,  itemDescription, } = product;
 
     const onSubmit = (data) => {
         // console.log(data);
@@ -119,7 +112,7 @@ const EditProduct = () => {
                             <div className='flex flex-col gap-2 md:flex-row md:justify-between md:items-center'>
                                 <label className="label">Date</label>
                                 <div>
-                                    <DatePicker disabled selected={date} onChange={(date) => setStartDate(date)} className='input' />
+                                    <DatePicker disabled selected={date} className='input' />
                                 </div>
                             </div>
 

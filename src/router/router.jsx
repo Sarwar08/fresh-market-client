@@ -27,6 +27,7 @@ import MyCart from "../pages/UserPages/MyCart/MyCart";
 import MyOrders from "../pages/UserPages/MyOrders/MyOrders";
 import MyWishList from "../pages/UserPages/MyWishList/MyWishList";
 import EditProduct from "../pages/VendorPages/MyProducts/EditProduct/EditProduct";
+import EditAd from "../pages/VendorPages/MyAds/EditAd";
 
 
 const router = createBrowserRouter([
@@ -125,6 +126,10 @@ const router = createBrowserRouter([
             {
                 path: 'myAds',
                 Component: MyAds,
+            },
+            {
+                path: 'editAd/:id',
+                Component: EditAd,
             },
             
             // admin routes

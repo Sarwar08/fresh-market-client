@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 const MyOrder = ({product, index}) => {
     const navigate = useNavigate();
 
-    const { _id: cart_id, email, itemName, itemImage, unit, qty, price, totalPrice, payment_status } = product;
+    const { _id: cart_id, itemName, itemImage, unit, qty, price, totalPrice, payment_status } = product;
 
     const handlePay = (id) => {
         navigate(`/dashboard/payment/${id}`);
@@ -37,6 +37,7 @@ const MyOrder = ({product, index}) => {
                 <td>{payment_status}</td>
                 <th className='flex gap-1'>
                     <button disabled={payment_status === 'paid'} onClick={() => handlePay(cart_id)} className="btn btn-info btn-sm">Pay Now</button>
+                    
                     <button disabled={payment_status === 'paid'} className="btn btn-error btn-sm"><MdDelete size={18} /></button>
                 </th>
             </tr>

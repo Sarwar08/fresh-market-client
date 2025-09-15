@@ -99,7 +99,7 @@ const ProductDetails = () => {
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <img
                     src={itemImage}
-                    className="max-w-xl rounded-lg shadow-2xl"
+                    className="w-full max-w-xl rounded-lg shadow-2xl"
                 />
                 <div className='space-y-4 max-w-md'>
                     {adOffer && <span className='bg-green-500 rounded px-2 font-bold'>{adOffer} Discount</span>}

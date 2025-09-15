@@ -9,7 +9,7 @@ const MyAds = () => {
     const axiosSecure = useAxiosSecure();
     const {user} = useAuth();
 
-    const {data: myAds} = useQuery({
+    const {data: myAds, refetch} = useQuery({
         queryKey: ['my-ads', user.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/advertisements?email=${user.email}`)
@@ -33,7 +33,7 @@ const MyAds = () => {
                     </thead>
                     <tbody>
                         {
-                            myAds?.map((ad, index) => <MyAd key={ad._id} ad={ad} index={index} />)
+                            myAds?.map((ad, index) => <MyAd key={ad._id} ad={ad} index={index} refetch={refetch} />)
                         }
                     </tbody>
                 </table>

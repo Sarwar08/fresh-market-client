@@ -1,10 +1,11 @@
 import React from 'react'
 import useAxios from '../../../hooks/useAxios'
 import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router';
 
 const SingleAd = ({ product }) => {
 
-    const { itemName, itemImage, adOffer, adStatus } = product;
+    const {_id, itemName, itemImage, adOffer, adStatus } = product;
 
     const axiosInstance = useAxios();
 
@@ -19,7 +20,7 @@ const SingleAd = ({ product }) => {
     if (adOffer && adStatus === "accepted") {
 
         return (
-            <div className="card bg-base-100 shadow-sm relative">
+            <div className="card bg-base-100/50 shadow-sm relative">
                 <div>
                     {
                         ads?.map(ad => <p
@@ -58,8 +59,8 @@ const SingleAd = ({ product }) => {
                 <div className="card-body">
                     <h2 className="card-title">{itemName}</h2>
                     <p>{adOffer} Discount</p>
-                    <div className="card-actions justify-end">
-                        <button className="btn btn-primary">Buy Now</button>
+                    <div className="card-actions justify-center">
+                        <Link to={`/products/${_id}`} className="btn btn-sm btn-primary">View Details</Link>
                     </div>
                 </div>
             </div>
