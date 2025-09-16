@@ -9,13 +9,15 @@ const MyCart = () => {
     const axiosSecure = useAxiosSecure();
     const {user} = useAuth();
 
-    const { data: myCart, refetch } = useQuery({
+    const { data, refetch } = useQuery({
         queryKey: ['my-cart'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/carts?email=${user.email}`);
             return res.data;
         }
     })
+
+    const myCart = Array.isArray(data) ? data : [];
 
     const unpaidCart = myCart?.filter(cart => cart.payment_status === 'pending');
 

@@ -10,13 +10,15 @@ const MyOrders = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
 
-    const { data: myOrders, isLoading } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['my-orders'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/carts?email=${user.email}`);
             return res.data;
         }
     })
+
+    const myOrders = Array.isArray(data) ? data : [];
 
     const paidCarts = myOrders?.filter(order => order.payment_status === 'paid');
 

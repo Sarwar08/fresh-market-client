@@ -9,13 +9,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
-    <div className='max-w-7xl mx-auto'>
-        <StrictMode >
-            <QueryClientProvider client={queryClient}>
-                <AuthProvider>
+    <StrictMode >
+        <QueryClientProvider client={queryClient}>
+            <AuthProvider>
+                <div className='max-w-7xl mx-auto'>
                     <RouterProvider router={router} />
-                </AuthProvider>
-            </QueryClientProvider>
-        </StrictMode>,
-    </div>
+                </div>
+            </AuthProvider>
+        </QueryClientProvider>
+    </StrictMode>,
 )

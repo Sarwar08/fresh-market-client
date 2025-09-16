@@ -9,13 +9,16 @@ const MyProducts = () => {
     const axiosSecure = useAxiosSecure();
     const {user} = useAuth();
 
-    const {data: myProducts, refetch} = useQuery({
+    const {data, refetch} = useQuery({
         queryKey: ['my-products', user.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/products?email=${user.email}`)
             return res.data;
         }
     })
+
+
+    const myProducts = Array.isArray(data) ? data : [];
 
     return (
         <div className="overflow-x-auto">

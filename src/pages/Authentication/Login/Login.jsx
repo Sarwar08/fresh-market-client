@@ -16,11 +16,11 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
+        // console.log(data);
 
         loginUser(data.email, data.password)
             .then(result => {
-                console.log(result.user);
+                // console.log(result.user);
                 setLoading(false);
                 navigate(from);
             })

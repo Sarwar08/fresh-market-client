@@ -51,7 +51,7 @@ const WishListItem = ({product, index, refetch}) => {
 
     if (payment_status === 'wishlist') {
         return (
-            <tr>
+            <tr className=''>
                 <th>
                     {index + 1}
                 </th>

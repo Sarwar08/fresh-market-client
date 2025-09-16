@@ -8,13 +8,15 @@ const AdHighlights = () => {
 
     const axiosInstance = useAxios();
 
-    const { data: products } = useQuery({
+    const { data } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
             const res = await axiosInstance.get(`/products`);
             return res.data;
         }
     })
+
+    const products = Array.isArray(data) ? data : [];
 
     return (
         <div>

@@ -15,7 +15,7 @@ const AllOrders = () => {
     })
 
     const paidOrders = myOrders?.filter(order => order.payment_status === 'paid');
-    console.log(paidOrders);
+    // console.log(paidOrders);
 
     return (
         <div className="overflow-x-auto">

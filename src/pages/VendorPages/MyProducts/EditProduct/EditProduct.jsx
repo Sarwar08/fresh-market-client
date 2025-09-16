@@ -23,7 +23,7 @@ const EditProduct = () => {
 
 
     const { id } = useParams();
-    console.log(id);
+    // console.log(id);
 
     const { data: product, isLoading } = useQuery({
         queryKey: ['single-product', id],
@@ -37,7 +37,7 @@ const EditProduct = () => {
         return <Loading />
     }
 
-    console.log(product);
+    // console.log(product);
 
     const { _id: productId, email, name, marketName, date, marketDescription, itemName, status, itemImage, price,  itemDescription, } = product;
 
@@ -54,11 +54,11 @@ const EditProduct = () => {
             itemDescription: data.itemDescription,
         }
 
-        console.log(productInfo);
+        // console.log(productInfo);
 
         axiosSecure.patch(`/products/${productId}`, productInfo)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 Swal.fire({
                     position: "top-end",
                     icon: "success",

@@ -24,7 +24,7 @@ const MyAd = ({ ad, index, refetch }) => {
             if (result.isConfirmed) {
                 axiosSecure.delete(`/advertisements/${id}`)
                     .then(res => {
-                        console.log(res.data);
+                        // console.log(res.data);
                         Swal.fire({
                             title: "Deleted!",
                             text: "Your file has been deleted.",

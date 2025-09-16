@@ -21,11 +21,11 @@ const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
+        // console.log(data);
 
         createUser(data.email, data.password)
             .then(result => {
-                console.log(result.user);
+                // console.log(result.user);
 
                 // update user
                 const profileInfo = {
@@ -47,7 +47,7 @@ const Register = () => {
 
                         axiosInstance.post('/users', userInfo)
                             .then(res => {
-                                console.log(res.data);
+                                // console.log(res.data);
                                 console.log('Data added successfully.');
                                 navigate(from);
                                 setLoading(false);
@@ -69,7 +69,7 @@ const Register = () => {
 
     const handlePhotoUpload = async (e) => {
         const image = e.target.files[0];
-        console.log(image);
+        // console.log(image);
 
         const formData = new FormData();
         formData.append('image', image);

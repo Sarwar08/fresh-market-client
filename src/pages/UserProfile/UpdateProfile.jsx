@@ -14,7 +14,7 @@ const UpdateProfile = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
-    const {role} = useUserRole();
+    const { role } = useUserRole();
 
     const [profilePhotoURL, setProfilePhotoURL] = useState(user?.photoURL);
 
@@ -25,7 +25,7 @@ const UpdateProfile = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
+        // console.log(data);
 
         // update user
         const profileInfo = {
@@ -36,6 +36,8 @@ const UpdateProfile = () => {
         Swal.fire({
             title: "Do you want to update it?",
             text: "",
+            background: "#233659",
+            color: "#fff",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -48,6 +50,8 @@ const UpdateProfile = () => {
                         console.log("Profile updated successfully.");
                         Swal.fire({
                             title: "User Profile Updated on Firebase!",
+                            background: "#275214",
+                            color: "#fff",
                             text: "Your profile has been Updated.",
                             icon: "success"
                         });
@@ -59,10 +63,12 @@ const UpdateProfile = () => {
 
                         axiosSecure.patch(`/users/${user?.email}/role`, userInfo)
                             .then(res => {
-                                console.log(res.data);
+                                // console.log(res.data);
                                 console.log('Data added successfully.');
                                 Swal.fire({
                                     title: "User DB Updated!",
+                                    background: "#2c5e17",
+                                    color: "#fff",
                                     text: "Your role has been Updated.",
                                     icon: "success"
                                 });
@@ -82,7 +88,7 @@ const UpdateProfile = () => {
 
     const handlePhotoUpload = async (e) => {
         const image = e.target.files[0];
-        console.log(image);
+        // console.log(image);
 
         const formData = new FormData();
         formData.append('image', image);
@@ -146,7 +152,7 @@ const UpdateProfile = () => {
                         <input type="file"
                             {...register('photo')}
                             onChange={handlePhotoUpload}
-                            className="input" placeholder="Upload your profile picture"  />
+                            className="input" placeholder="Upload your profile picture" />
                     </div>
                     {/* choose your role */}
                     <div className='space-y-1'>

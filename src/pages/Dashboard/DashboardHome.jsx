@@ -13,7 +13,7 @@ const DashboardHome = () => {
         return <Loading />
     }
 
-    console.log(role);
+    // console.log(role);
 
     if (role === 'user') {
         return <UserDashboard />

@@ -9,13 +9,15 @@ const MyWishList = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
 
-    const { data: myCart, isLoading, refetch} = useQuery({
+    const { data, isLoading, refetch} = useQuery({
         queryKey: ['my-cart'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/carts?email=${user.email}`);
             return res.data;
         }
     })
+ 
+    const myCart = Array.isArray(data) ? data : [];
 
     const wishlistCart = myCart?.filter(cart => cart.payment_status === 'wishlist');
 
@@ -25,8 +27,8 @@ const MyWishList = () => {
 
     return (
         <div className="overflow-x-auto">
-            <p className='text-3xl text-rose-400 font-semibold bg-amber-300/20 text-center py-4'>No of Items in the wishlist: {wishlistCart?.length} </p>
-            <table className="table bg-amber-800/50">
+            <p className='text-3xl font-semibold text-center py-4'>No of Items in the wishlist: {wishlistCart?.length} </p>
+            <table className="table ">
                 {/* head */}
                 <thead className='bg-rose-600/70 text-xl'>
                     <tr>

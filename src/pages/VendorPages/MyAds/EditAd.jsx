@@ -11,7 +11,7 @@ const EditAd = () => {
     const { user } = useAuth();
 
     const {id} = useParams();
-    console.log(id);
+    // console.log(id);
 
     const navigate = useNavigate();
 
@@ -37,11 +37,11 @@ const EditAd = () => {
             image: discountImg,
         }
 
-        console.log(adInfo);
+        // console.log(adInfo);
 
         axiosSecure.patch(`/advertisements/${id}`, adInfo)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 navigate('/dashboard/myAds');
             })
             .catch(error => {
@@ -62,7 +62,7 @@ const EditAd = () => {
         setDiscountImg(res.data.data.url);
     }
 
-    console.log(discountImg);
+    // console.log(discountImg);
 
     if (isLoading) {
         return <Loading />

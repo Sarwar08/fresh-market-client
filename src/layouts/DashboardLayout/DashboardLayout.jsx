@@ -11,9 +11,9 @@ const DashboardLayout = () => {
 
     const { role, roleLoading } = useUserRole();
 
-    if (roleLoading) {
-        <Loading />
-    }
+    // if (roleLoading) {
+    //     return <Loading />;
+    // }
 
 
     return (

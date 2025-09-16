@@ -42,11 +42,11 @@ const AddProduct = () => {
 
         }
 
-        console.log(productInfo);
+        // console.log(productInfo);
 
         axiosSecure.post('/products', productInfo)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -73,7 +73,7 @@ const AddProduct = () => {
 
         setItemImg(res.data.data.url)
     }
-    console.log(itemImg);
+    // console.log(itemImg);
 
 
     return (

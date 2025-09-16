@@ -26,7 +26,7 @@ const MyProduct = ({ product, index, refetch }) => {
             if (result.isConfirmed) {
                 axiosSecure.delete(`/products/${id}`)
                     .then(res => {
-                        console.log(res.data);
+                        // console.log(res.data);
                         Swal.fire({
                             title: "Deleted!",
                             text: "Your file has been deleted.",

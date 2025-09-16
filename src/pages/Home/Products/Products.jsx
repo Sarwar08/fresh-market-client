@@ -16,11 +16,15 @@ const Products = () => {
         }
     })
 
-    const acceptedData = data?.filter(dat => dat.status === 'accepted');
+    // console.log(data);
+
+    const products = Array.isArray(data) ? data : [];
+
+    const acceptedData = products?.filter(dat => dat.status === 'accepted');
 
     const firstSixData = acceptedData?.slice(0, 6);
-    console.log(data);
-    console.log(firstSixData);
+    // console.log(data);
+    // console.log(firstSixData);
 
     if (isLoading) {
         return <Loading />

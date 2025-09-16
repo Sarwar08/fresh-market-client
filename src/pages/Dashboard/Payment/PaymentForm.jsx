@@ -12,7 +12,7 @@ const PaymentForm = () => {
     const stripe = useStripe();
     const elements = useElements();
     const { cartId } = useParams();
-    console.log(cartId);
+    // console.log(cartId);
 
     const { user } = useAuth();
 
@@ -36,7 +36,7 @@ const PaymentForm = () => {
 
     const amount = cartInfo.totalPrice;
     const amountInCents = amount * 100;
-    console.log(amountInCents);
+    // console.log(amountInCents);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -61,7 +61,7 @@ const PaymentForm = () => {
         }
         else {
             setError('');
-            console.log('payment method', paymentMethod);
+            // console.log('payment method', paymentMethod);
         }
 
         // step-2: create payment intent
@@ -71,7 +71,7 @@ const PaymentForm = () => {
         })
 
         const clientSecret = res.data.clientSecret;
-        console.log(clientSecret);
+        // console.log(clientSecret);
 
         // step-3: confirm payment 
         const result = await stripe.confirmCardPayment(clientSecret, {
@@ -92,7 +92,7 @@ const PaymentForm = () => {
             setError('');
             if (result.paymentIntent.status === 'succeeded') {
                 console.log('Payment Succeeded.');
-                console.log(result);
+                // console.log(result);
 
                 // step-4: mark paid also create payment history
                 const paymentData = {
@@ -103,7 +103,7 @@ const PaymentForm = () => {
                     transactionId: result.paymentIntent.id,
                 }
 
-                console.log(paymentData);
+                // console.log(paymentData);
 
                 const paymentRes = await axiosSecure.post('/payments', paymentData);
 

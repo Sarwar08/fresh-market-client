@@ -24,7 +24,7 @@ const ViewProfile = () => {
             <div className="hero-content flex-col lg:flex-row">
                 <img
                     src={user.photoURL} alt='Photo Not Found'
-                    className="max-w-sm rounded-lg shadow-2xl"
+                    className="w-full max-w-sm rounded-lg shadow-2xl"
                 />
                 <div>
                     <h1 className="text-5xl font-bold">{user.displayName}</h1>

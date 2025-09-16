@@ -16,7 +16,7 @@ const AddAdvertisement = () => {
     const {register, handleSubmit, formState: {errors}} = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
+        // console.log(data);
 
         const adInfo = {
             email: data.email,
@@ -27,11 +27,11 @@ const AddAdvertisement = () => {
             status: data.status,
         }
 
-        console.log(adInfo);
+        // console.log(adInfo);
 
         axiosSecure.post('/advertisements', adInfo)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch(error => {
                 console.log(error.message);

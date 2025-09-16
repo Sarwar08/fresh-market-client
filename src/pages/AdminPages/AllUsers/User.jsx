@@ -11,7 +11,7 @@ const User = ({ user, index, refetch }) => {
 
         axiosSecure.patch(`/users/${email}/role`, {role: userRole})
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                  refetch();
             })        
             .catch(error => {

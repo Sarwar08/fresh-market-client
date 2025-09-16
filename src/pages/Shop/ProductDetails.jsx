@@ -16,7 +16,7 @@ const ProductDetails = () => {
     const { user } = useAuth();
 
     const { id } = useParams();
-    console.log(id);
+    // console.log(id);
 
     const navigate = useNavigate();
 
@@ -68,11 +68,11 @@ const ProductDetails = () => {
             payment_status: paymentStatus, // default pending || wishlist, if wishlist wishlist, pending cart, paid order.
         }
 
-        console.log(ordersInfo);
+        // console.log(ordersInfo);
 
         axiosSecure.post('/carts', ordersInfo)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 Swal.fire({
                     position: "top-end",
                     icon: "success",

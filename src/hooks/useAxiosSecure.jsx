@@ -4,7 +4,7 @@ import useAuth from './useAuth'
 import LoadingSmall from '../components/LoadingSmall/LoadingSmall'
 
 const axiosSecure = axios.create({
-    baseURL: `http://localhost:3000`
+    baseURL: `https://fresh-market-server-eight.vercel.app`
 })
 
 const useAxiosSecure = () => {
