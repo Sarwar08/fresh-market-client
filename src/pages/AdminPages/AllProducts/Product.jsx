@@ -3,7 +3,7 @@ import { BiSolidEditAlt } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router';
 
-const Product = ({product, index}) => {
+const Product = ({product, index }) => {
   
       const { _id, itemName, itemImage, marketName, date, status, price, unit } = product;
   

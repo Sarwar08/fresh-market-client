@@ -8,7 +8,7 @@ import Product from './Product';
 const AllProducts = () => {
   const axiosSecure = useAxiosSecure();
 
-    const {data: products, isLoading} = useQuery({
+    const {data: products, isLoading, refetch} = useQuery({
         queryKey: ['my-products'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/products`)
@@ -38,7 +38,7 @@ const AllProducts = () => {
                 </thead>
                 <tbody>
                     {
-                        products?.map((product, index) => <MyProduct key={product._id} product={product} index={index} />)
+                        products?.map((product, index) => <MyProduct key={product._id} product={product} index={index} refetch={refetch} />)
                     }
                 </tbody>
             </table>

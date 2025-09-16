@@ -17,6 +17,8 @@ const MyProduct = ({ product, index, refetch }) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
+            background: "#B20000",
+            color: "#fff",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -30,6 +32,8 @@ const MyProduct = ({ product, index, refetch }) => {
                         Swal.fire({
                             title: "Deleted!",
                             text: "Your file has been deleted.",
+                            background: "#B20000",
+                            color: "#fff",
                             icon: "success"
                         });
 

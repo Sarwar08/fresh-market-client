@@ -62,6 +62,8 @@ const EditProduct = () => {
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
+                    background: "#2c5e17",
+                    color: "#fff",
                     title: "Items Added Successfully",
                     showConfirmButton: false,
                     timer: 1500
